@@ -2,7 +2,8 @@ import math
 
 movies = [
     {"title": "The Dune Chronicles", "year": 2021, "genres": {"sci-fi", "drama"},
-     "rating": 8.6, "duration_min": 155, "actors": ["T. Chalamet", "R. Ferguson", "O. Isaac"]},
+     "rating": 8.6, "duration_min": 155, 
+     "actors": ["T. Chalamet", "R. Ferguson", "O. Isaac"]},
     {"title": "Kitchen Stories", "year": 2019, "genres": {"comedy", "drama"},
      "rating": 7.1, "duration_min": 98, "actors": ["A. Novak", "M. Ferguson"]},
     {"title": "silent hours", "year": 2016, "genres": {"thriller", "drama"},
@@ -84,6 +85,23 @@ def count_long_movies(movies, threshold=120):
         if movie.get('duration_min') > threshold:
             count += 1
     return count
+
+def normalize_title(title):
+    words = title.split()
+    normalized_words = [word[0].upper() + word[1:] for word in words]
+    return " ".join(normalized_words)
+
+def make_slug(title):
+    normalized = normalize_title(title)
+    return normalized.lower().replace(" ", "-")
+
+def format_report_line(movie):
+    title = normalize_title(movie["title"])
+    genres = ", ".join(sorted(movie["genres"]))
+    duration = duration_in_hours(movie["duration_min"])
+    return f'"{title}" ({movie["year"]}) — {movie["rating"]}/10, {duration}, жанры: {genres}'
+
+
 
 def main():
     print("Hello from dz-catalog-analysis-mikhalenko-m26-555!")
