@@ -35,7 +35,7 @@ def catalog_age_stats(movies, current_year=2026):
     if not movies:
         return (0, 0, 0)
 
-    ages = [current_year - movie.get("year") for movie in movies]
+    ages = [current_year - movie.get('year') for movie in movies]
 
     max_age = max(ages)
     min_age = min(ages)
@@ -46,24 +46,24 @@ def catalog_age_stats(movies, current_year=2026):
 def duration_in_hours(minutes):
     hours = minutes // 60
     mins = minutes % 60
-    return f"{hours}ч {mins}м"
+    return f'{hours}ч {mins}м'
 
 def rating_tier(rating):
     if rating >= 9:
-        return "шедевр"
+        return 'шедевр'
     elif rating >= 7:
-        return "хорошо"
+        return 'хорошо'
     else:
-        return "средне" if rating >= 5 else "слабо"
+        return 'средне' if rating >= 5 else 'слабо'
 
 def decade_label(year):
     match year:
         case _ if year > 2020:
-            return "новые"
+            return 'новые'
         case _ if 2015 <= year <= 2020:
-            return "недавние"
+            return 'недавние'
         case _:
-            return "старые"
+            return 'старые'
 
 for movie in movies:
     if 'comedy' in movie.get('genres'):
@@ -89,25 +89,27 @@ def count_long_movies(movies, threshold=120):
 def normalize_title(title):
     words = title.split()
     normalized_words = [word[0].upper() + word[1:] for word in words]
-    return " ".join(normalized_words)
+    return ' '.join(normalized_words)
 
 def make_slug(title):
     normalized = normalize_title(title)
-    return normalized.lower().replace(" ", "-")
+    return normalized.lower().replace(' ', '-')
 
 def format_report_line(movie):
-    title = normalize_title(movie["title"])
-    genres = ", ".join(sorted(movie["genres"]))
-    duration = duration_in_hours(movie["duration_min"])
-    return f'"{title}" ({movie["year"]}) — {movie["rating"]}/10, {duration}, жанры: {genres}'
+    title = normalize_title(movie.get('title'))
+    genres = ', '.join(sorted(movie.get('genres')))
+    duration = duration_in_hours(movie.get('duration_min'))
+    return f"'{title}' ({movie.get('year')}) — {movie.get('rating')}/10, {duration}, жанры: {genres}"
 
 def titles_sorted_by_rating(movies):
     sorted_movies = sorted(movies, key=lambda movie: movie.get('rating'), reverse=True)
     return [movie.get('title') for movie in sorted_movies]
 
 def top_n_by_rating(movies, n=3):
-    sorted_movies = sorted(movies, key=lambda movie: movie["rating"], reverse=True)
-    return [(movie["title"], movie["rating"]) for movie in sorted_movies[:n]]
+    sorted_movies = sorted(movies, key=lambda movie: movie.get('rating'), reverse=True)
+    return [(movie.get('title'), movie.get('rating')) for movie in sorted_movies[:n]]
+
+
 
 def main():
     print("Hello from dz-catalog-analysis-mikhalenko-m26-555!")
