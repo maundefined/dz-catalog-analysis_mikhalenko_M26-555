@@ -129,6 +129,22 @@ avg = average_rating(movies)
 above_avg = {movie['title']: movie['rating']
     for movie in movies if movie['rating'] > avg}
 
+def all_genres(movies):
+    genres = set()
+    for movie in movies:
+        genres |= set(movie.get('genres', set()))
+    return genres
+
+def common_actors(movie1, movie2):
+    actors1 = set(movie1.get('actors', []))
+    actors2 = set(movie2.get('actors', []))
+    return actors1 & actors2
+
+def genres_only_in_one(movies_a, movies_b):
+    genres_a = all_genres(movies_a)
+    genres_b = all_genres(movies_b)
+    return genres_a - genres_b
+
 def main():
     print("Hello from dz-catalog-analysis-mikhalenko-m26-555!")
 
