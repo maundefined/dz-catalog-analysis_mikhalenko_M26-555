@@ -1,3 +1,5 @@
+import math
+
 movies = [
     {"title": "The Dune Chronicles", "year": 2021, "genres": {"sci-fi", "drama"},
      "rating": 8.6, "duration_min": 155, "actors": ["T. Chalamet", "R. Ferguson", "O. Isaac"]},
@@ -21,9 +23,32 @@ movies = [
      "rating": 7.3, "duration_min": 129, "actors": ["P. Diaz", "T. Chalamet"]},
 ]
 
+def average_rating(movies):
+    if not movies:
+        return 0.0
+
+    total_rating = math.fsum(movie.get('rating') for movie in movies)
+    return round(total_rating / len(movies), 1)
+
+def catalog_age_stats(movies, current_year=2026):
+    if not movies:
+        return (0, 0, 0)
+
+    ages = [current_year - movie.get("year") for movie in movies]
+
+    max_age = max(ages)
+    min_age = min(ages)
+    avg_age = math.ceil(sum(ages) / len(ages))
+
+    return (max_age, min_age, avg_age)
+
+def duration_in_hours(minutes):
+    hours = minutes // 60
+    mins = minutes % 60
+    return f"{hours}ч {mins}м"
+
 def main():
     print("Hello from dz-catalog-analysis-mikhalenko-m26-555!")
-
 
 if __name__ == "__main__":
     main()
