@@ -99,7 +99,8 @@ def format_report_line(movie):
     title = normalize_title(movie.get('title'))
     genres = ', '.join(sorted(movie.get('genres')))
     duration = duration_in_hours(movie.get('duration_min'))
-    return f"'{title}' ({movie.get('year')}) — {movie.get('rating')}/10, {duration}, жанры: {genres}"
+    return (f"'{title}' ({movie.get('year')}) — {movie.get('rating')}/10, "
+            f"{duration}, жанры: {genres}")
 
 def titles_sorted_by_rating(movies):
     sorted_movies = sorted(movies, key=lambda movie: movie.get('rating'), reverse=True)
@@ -109,7 +110,24 @@ def top_n_by_rating(movies, n=3):
     sorted_movies = sorted(movies, key=lambda movie: movie.get('rating'), reverse=True)
     return [(movie.get('title'), movie.get('rating')) for movie in sorted_movies[:n]]
 
+def count_by_genre(movies):
+    genres_count = {}
+    for movie in movies:
+        for genre in movie['genres']:
+            genres_count[genre] = genres_count.get(genre, 0) + 1
+    return genres_count
 
+def actor_filmography(movies):
+    films = {}
+    for movie in movies:
+        title = movie.get('title')
+        for actor in movie.get('actors'):
+            films.setdefault(actor, []).append(title)
+    return films
+
+avg = average_rating(movies)
+above_avg = {movie['title']: movie['rating']
+    for movie in movies if movie['rating'] > avg}
 
 def main():
     print("Hello from dz-catalog-analysis-mikhalenko-m26-555!")
