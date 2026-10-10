@@ -174,7 +174,8 @@ def build_report(movies):
 
     print("\nФильмов по жанрам:")
     genre_counts = count_by_genre(movies)
-    for genre, count in sorted(genre_counts.items(), key=lambda item: (-item[1], item[0])):
+    for genre, count in sorted(
+        genre_counts.items(), key=lambda item: (-item[1], item[0])):
         print(f"  {genre} — {count}")
     print()
 
