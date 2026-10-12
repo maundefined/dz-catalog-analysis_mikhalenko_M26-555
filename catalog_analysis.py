@@ -65,19 +65,19 @@ def decade_label(year):
         case _:
             return 'старые'
 
-#for movie in movies:
-#    if 'comedy' in movie.get('genres'):
-#        continue
-#    print(movie.get('title'))
+for movie in movies:
+   if 'comedy' in movie.get('genres'):
+       continue
+   print(movie.get('title'))
 
-#i = 0
-#while i < len(movies):
-#    if movies[i].get('rating') > 9.0:
-#        print(f'Первый фильм с рейтингом выше 9.0: {movies[i].get('title')}')
-#        break
-#    i += 1
-#else:
-#    print('Шедевров не найдено')
+i = 0
+while i < len(movies):
+   if movies[i].get('rating') > 9.0:
+       print(f'Первый фильм с рейтингом выше 9.0: {movies[i].get('title')}')
+       break
+   i += 1
+else:
+   print('Шедевров не найдено')
 
 def count_long_movies(movies, threshold=120):
     count = 0
@@ -125,9 +125,9 @@ def actor_filmography(movies):
             films.setdefault(actor, []).append(title)
     return films
 
-#avg = average_rating(movies)
-#above_avg = {movie['title']: movie['rating']
-#    for movie in movies if movie['rating'] > avg}
+avg = average_rating(movies)
+above_avg = {movie['title']: movie['rating']
+   for movie in movies if movie['rating'] > avg}
 
 def all_genres(movies):
     genres = set()
@@ -150,12 +150,12 @@ def iter_high_rated(movies, min_rating=8.0):
         if movie.get('rating', 0) >= min_rating:
             yield movie
 
-#for movie in iter_high_rated(movies):
-#    print(format_report_line(movie))
+for movie in iter_high_rated(movies):
+   print(format_report_line(movie))
 
-#total_duration = sum(movie.get('duration_min') 
-#		for movie in movies if movie.get('rating') > 7)
-#print(total_duration)
+total_duration = sum(movie.get('duration_min') 
+		for movie in movies if movie.get('rating') > 7)
+print(total_duration)
 
 def build_report(movies):
     print("ОТЧЕТ ПО КАТАЛОГУ")
